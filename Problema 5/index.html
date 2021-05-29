@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body{
+            background-color: #66FF99;
+        }
+        h1,h2, span {
+            text-align: center;
+        }
+
+        form, label, input{
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Authentication Form</h1>
+<span>
+    <form method="post">
+        <label>Username: </label>
+        <input type="text" name="username">
+        <br>
+        <label>Password: </label>
+        <input type="text" name="password">
+        <br>
+        <input type="submit" name="submit">
+    </form>
+    <?php
+
+    if(isset($_POST['username']) && isset($_POST['password']) and isset($_POST['submit'])){
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $conn = new mysqli($servername, $username, $password);
+        if($conn->connect_error){
+            die("Connection error");
+        }
+        $sql = "USE php";
+        if($conn->query($sql) === TRUE){
+            //echo 'connected to php';
+        }
+        else{
+            die("Cannot execute query");
+        }
+        $stmt = $conn->prepare("SELECT * FROM php.users WHERE username = ? and password = ?");
+        $stmt->bind_param('ss', $user, $pass);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($result->num_rows > 0){
+
+            //session_start();
+
+            //$_SESSION['username'] = $_POST['username'];
+            //$_SESSION['password'] = $_POST['password'];
+            setcookie("user", $_POST['username']);
+            setcookie("password",$_POST['password']);
+            header('Location:uploadPhoto.php');
+            //die();
+        }
+        else{
+            echo "<p>Wrong Credentials! </p><br>";
+        }
+    }
+    ?>
+</span>
+</body>
+</html>

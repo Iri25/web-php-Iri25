@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grades</title>
+    <style>
+        body {
+            background-color: lightgreen;
+        }
+        h2,h3 {
+            color: black;
+            font-family: Times New Roman;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+        }
+        h3{
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<h2> Student Management System</h2>
+<h3> Student </h3>
+<form action="student.php" method="post" target="_blank">
+    Last Name: <input type="text" name="lastname"><br>
+    First Name: <input type="text" name="firstname"><br>
+    <input type="submit">
+</form>
+<h3> Teacher.</h3>
+<form action="teacher.php" method="get" target="_blank">
+    Username: <input type="text" name="username"><br>
+    Password: <input type="text" name="password"><br>
+    <input type="submit">
+</form>
+</body>
+</html>
